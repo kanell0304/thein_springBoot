@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class MyController {
-	
+
+	// ../myhello?name=NiceToMeetYou
 	@GetMapping("/myhello")
 	public String Hello(@RequestParam("name") String name) {
 		return "Hello" + name;
