@@ -16,11 +16,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findById(long studentId);
 
     // 이름으로 학생 찾기 - 동명이인이 있을 수 있으므로 list형태로 가져오기
-    @Query("SELECT s FROM Student s WHERE s.student.name = :studentName ORDER BY s.id DESC")
+    @Query("SELECT s FROM Student s WHERE s.name = :studentName ORDER BY s.id DESC")
     List<Student> findByName(@Param("studentName") String studentName);
 
     // 나이로 학생 찾기 - 같은 나이의 여러 학생이 있을 수 있으므로 list 형태로 가져오기
-    @Query("SELECT s FROM Student s WHERE s.student.age = :studentAge ORDER By s.id DESC")
+    @Query("SELECT s FROM Student s WHERE s.age = :studentAge ORDER By s.id DESC")
     List<Student> findByAge(@Param("studentAge") Integer studentAge);
 
 }

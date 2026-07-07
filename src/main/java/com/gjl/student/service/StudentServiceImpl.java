@@ -60,7 +60,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<StudentDTO> findAll() {
-        return List.of();
+        List<Student> studentList = studentRepository.findAll();
+
+        return studentList.stream().map(StudentDTO::new).toList();
     }
 
 }
