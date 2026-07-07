@@ -58,11 +58,34 @@ public class StudentServiceImpl implements StudentService{
         return studentList.stream().map(StudentDTO::new).toList(); // studentList는 Student 타입이기 떄문에 StudentDTO 타입으로 변환이 필요
     }
 
+    // 모든 학생 조회
     @Override
     public List<StudentDTO> findAll() {
         List<Student> studentList = studentRepository.findAll();
 
         return studentList.stream().map(StudentDTO::new).toList();
+    }
+
+    // 학생id를 기준으로 특정 학생 정보 수정
+    @Override
+    public StudentDTO updateStudentById(StudentDTO studentDTO) {
+        Student selectedStudent = studentRepository.findById(studentDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 학생입니다."));
+
+        selectedStudent.changeName(studentDTO.getName());
+        selectedStudent.changeAge(studentDTO.getAge());
+
+        Student changedStudent = studentRepository.save(selectedStudent);
+
+        return entityToDTO(changedStudent);
+    }
+
+    // 학생id를 기준으로 특정 학생 삭제
+    @Override
+    public StudentDTO deleteStudentById(Long studentId) {
+        Student selectedStudent = studentRepository.findById(studentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 학생입니다."));
+
+        studentRepository.delete(selectedStudent);
+        return entityToDTO(selectedStudent);
     }
 
 }
